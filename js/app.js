@@ -1,3 +1,4 @@
+//Armazena o valor total do carrinho
 let valorDoCarrinho = 0;
 
 //Adiciona o produto ao carrinho (estudar função).
@@ -19,7 +20,7 @@ function adicionar() {
         precoDoProduto = parseInt(precoDoProduto);
 
         //Adiciona o produto a lista do carrinho 
-        let AdicionarNovoPro = document.getElementById('lista-produtos');
+        let AdicionarNovoPro = document.querySelector('.carrinho__produtos__produto');
         novoProduto = document.createElement('span');
         novoProduto.innerHTML = `<span class="texto-azul">${quantidadeDeProdutos}x</span> ${produto} <span class="texto-azul">R$${precoDoProduto}</span>`;
 
@@ -33,4 +34,21 @@ function adicionar() {
         valorDoCarrinho = novoValor;
         document.getElementById('valor-total').textContent = `R$${novoValor}`;
     }
+};
+
+function limpar() {
+
+    //limpa a lista de produtos no carrinho
+    let classPricipal = document.querySelector('.carrinho__produtos__produto');
+    let limparSpans = classPricipal.querySelectorAll('span');
+
+    //limpa o valor total do carrinho
+    document.getElementById('valor-total').textContent = 'R$0.00';
+
+    limparSpans.forEach(function (span) {
+        classPricipal.textContent = '';
+        classPricipal.remove(span);
+    });
+
+
 };
