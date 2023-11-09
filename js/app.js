@@ -1,39 +1,24 @@
-//Armazena o valor total do carrinho
-let valorDoCarrinho = 0;
-
 //Adiciona o produto ao carrinho (estudar função).
 function adicionar() {
 
-    //Armazena o valor inserida no campo "quantidade"
-    let quantidadeDeProdutos = document.querySelector('input').value;
+    //get nome, valor, quantidade:
+    let produto = document.getElementById('produto').value;
+    let nomeDoProduto = produto.split('-')[0];
+    let valorDoProduto = produto.split('R$')[1];
+    let quantidadeDeProdutos = document.getElementById('quantidade').value;
 
-    //Verificação do campo quantidade para não ficar vazio
-    if (quantidadeDeProdutos == 0) {
-        alert('Adicione uma quantidade para adicionar!');
-    } else {
-        //Pegar o nome do produto para adicionar no novo elemento.
-        let produto = document.getElementById('produto').value;
+    //set subtotal 
+    let subTotal = valorDoProduto * quantidadeDeProdutos;
 
-        //Pegar o preço do produto para adicionar no novo elemento.
-        let pegarPreco = document.getElementById('produto');
-        precoDoProduto = pegarPreco.options[pegarPreco.selectedIndex].getAttribute("preco");
-        precoDoProduto = parseInt(precoDoProduto);
+    let produtosDoCarrinho = document.getElementById('lista-produtos');
+    produtosDoCarrinho.innerHTML += `<section class="carrinho__produtos__produto">
+    <span class="texto-azul">${quantidadeDeProdutos}x</span> ${nomeDoProduto} <span class="texto-azul">R$${valorDoProduto}</span>
+  </section>`;
 
-        //Adiciona o produto a lista do carrinho 
-        let AdicionarNovoPro = document.querySelector('.carrinho__produtos__produto');
-        novoProduto = document.createElement('span');
-        novoProduto.innerHTML = `<span class="texto-azul">${quantidadeDeProdutos}x</span> ${produto} <span class="texto-azul">R$${precoDoProduto}</span>`;
-
-        AdicionarNovoPro.appendChild(novoProduto);
-
-        //limpa o campo quantidade
-        document.getElementById('quantidade').value = null;
-
-        //Adiciona o valor total do produtos do carrinho.
-        let novoValor = valorDoCarrinho + (precoDoProduto * quantidadeDeProdutos);
-        valorDoCarrinho = novoValor;
-        document.getElementById('valor-total').textContent = `R$${novoValor}`;
-    }
+    let valorDoCarrinho = document.getElementById('valor-total');
+    let valorAtual = valorDoCarrinho.value.split('$')[1];
+    let valorFinal = valorAtual + subTotal;
+    valorDoCarrinho.textContent = `R$${valorFinal}`;
 };
 
 function limpar() {
